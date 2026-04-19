@@ -1,0 +1,8 @@
+{
+  "skills": {
+    "codeassist-guardrails": "skills/codeassist-guardrails"
+  },
+  "agents": {},
+  "plugins": {},
+  "contexts": {}
+}

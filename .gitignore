@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Eval workspaces (local dev artifacts)
+*-workspace/
+
+# skill-creator (published separately by Anthropic)
+skills/skill-creator/
+
+# Node
+node_modules/

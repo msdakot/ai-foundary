@@ -1,0 +1,28 @@
+{
+  "name": "ai-foundry",
+  "version": "0.1.0",
+  "description": "Open registry of skills, agents, plugins, and contexts for AI coding assistants",
+  "bin": {
+    "ai-foundry": "./scripts/install.js"
+  },
+  "scripts": {
+    "start": "node scripts/install.js"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skills",
+    "agents",
+    "ai",
+    "llm"
+  ],
+  "author": "Dhruvi Kothari",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/msdakot/ai-foundary"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
