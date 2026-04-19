@@ -111,6 +111,12 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=msdakot/ai-foundary&type=Date)](https://star-history.com/#msdakot/ai-foundary&Date)
+
+---
+
 ## License
 
 [MIT](./LICENSE)
