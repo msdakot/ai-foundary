@@ -19,11 +19,31 @@ Drop-in components built and refined by the community. No bloat. No boilerplate.
 
 ## Quick install
 
+**Install the whole registry** (recommended):
+
+```bash
+/plugin marketplace add msdakot/ai-foundary
+```
+
+**Manual clone:**
+
+```bash
+git clone https://github.com/msdakot/ai-foundary.git ~/.claude/plugins/ai-foundary
+```
+
+**One-liner:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/msdakot/ai-foundary/main/scripts/install.sh | bash
+```
+
+---
+
+**Install a single component via npx:**
+
 ```bash
 npx ai-foundry add <type> <name>
 ```
-
-### Examples
 
 ```bash
 # Install a skill
