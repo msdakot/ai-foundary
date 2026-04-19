@@ -27,7 +27,7 @@ npx ai-foundry add <type> <name>
 
 ```bash
 # Install a skill
-npx ai-foundry add skill codeassist-guardrails
+npx ai-foundry add skill <listed-skill>
 
 # List everything available
 npx ai-foundry list
