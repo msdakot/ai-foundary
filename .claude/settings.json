@@ -1,0 +1,7 @@
+{
+  "skills": [
+    ".claude/.agents/skills/skill-creator",
+    ".claude/.agents/skills/codeassist-guardrails",
+    "skills/skill-observer"
+  ]
+}
