@@ -1,7 +1,9 @@
 {
   "skills": {
     "codeassist-guardrails": "skills/codeassist-guardrails",
-    "skill-observer": "skills/skill-observer"
+    "skill-observer": "skills/skill-observer",
+    "content-curator": "skills/social-media/content-curator",
+    "content-curator-research": "skills/social-media/content-curator-research"
   },
   "agents": {},
   "plugins": {},

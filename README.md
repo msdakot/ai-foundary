@@ -63,6 +63,8 @@ This copies the component into your project's `.claude/` directory and registers
 |---|---|
 | [codeassist-guardrails](./skills/codeassist-guardrails/) | Behavioral guardrails for LLM coding — prevents silent assumptions, overengineering, and collateral damage |
 | [skill-observer](./skills/skill-observer/) | Background observer that watches conversation patterns, detects repeated corrections, and suggests new skills or CLAUDE.md rules for human approval |
+| [content-curator-research](./skills/social-media/content-curator-research/) | Autonomous 3x/day AI intel sweep across HackerNews, GitHub Trending, ArXiv, Google AI Blog, and X — appends structured daily reports to a GitHub repo |
+| [content-curator](./skills/social-media/content-curator/) | Drafts LinkedIn posts and newsletter sections grounded in real signals from the latest intel report, with hook library and reverse-engineer mode |
 
 ---
 
