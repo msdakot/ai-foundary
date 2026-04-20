@@ -1,6 +1,7 @@
 {
   "skills": {
-    "codeassist-guardrails": "skills/codeassist-guardrails"
+    "codeassist-guardrails": "skills/codeassist-guardrails",
+    "skill-observer": "skills/skill-observer"
   },
   "agents": {},
   "plugins": {},

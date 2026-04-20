@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
+const os = require("os");
 
 const REPO = "msdakot/ai-foundary";
 const BRANCH = "main";
@@ -89,6 +90,44 @@ function updateSettings(installPath) {
   }
 }
 
+function installHooks(localInstallDir) {
+  const hooksSourceDir = path.join(localInstallDir, "hooks");
+  if (!fs.existsSync(hooksSourceDir)) return;
+
+  const globalHooksDir = path.join(os.homedir(), ".claude", "hooks");
+  const globalSettingsPath = path.join(os.homedir(), ".claude", "settings.json");
+
+  fs.mkdirSync(globalHooksDir, { recursive: true });
+
+  let globalSettings = {};
+  if (fs.existsSync(globalSettingsPath)) {
+    try { globalSettings = JSON.parse(fs.readFileSync(globalSettingsPath, "utf8")); } catch {}
+  }
+  if (!globalSettings.hooks) globalSettings.hooks = {};
+  if (!globalSettings.hooks.Stop) globalSettings.hooks.Stop = [{ hooks: [] }];
+
+  for (const file of fs.readdirSync(hooksSourceDir)) {
+    if (!file.endsWith(".sh")) continue;
+    const dest = path.join(globalHooksDir, file);
+    fs.copyFileSync(path.join(hooksSourceDir, file), dest);
+    fs.chmodSync(dest, 0o755);
+    console.log(`  Installed hook → ${dest}`);
+
+    // Register Stop hooks that match the naming convention
+    if (file.includes("-stop.sh")) {
+      const cmd = `bash ~/.claude/hooks/${file}`;
+      const stopHooks = globalSettings.hooks.Stop[0].hooks;
+      if (!stopHooks.find((h) => h.command === cmd)) {
+        stopHooks.push({ type: "command", command: cmd, timeout: 10 });
+        console.log(`  Registered Stop hook: ${file}`);
+      }
+    }
+  }
+
+  fs.writeFileSync(globalSettingsPath, JSON.stringify(globalSettings, null, 2));
+  console.log(`  Updated ~/.claude/settings.json`);
+}
+
 async function cmdList() {
   console.log("\nAvailable components:\n");
   for (const [t, items] of Object.entries(registry)) {
@@ -117,11 +156,14 @@ async function cmdAdd(type, name) {
   const repoPath = bucket[name];
   const installDir = path.join(".claude", ".agents", pluralType, name);
 
+  const localInstallDir = path.join(process.cwd(), installDir);
+
   console.log(`\nInstalling ${type}/${name} → ${installDir} ...`);
-  await downloadDir(repoPath, path.join(process.cwd(), installDir));
+  await downloadDir(repoPath, localInstallDir);
 
   if (type === "skill" || pluralType === "skills") {
     updateSettings(installDir);
+    installHooks(localInstallDir);
   }
 
   console.log(`Done. ${type} "${name}" installed.\n`);
