@@ -1,6 +1,7 @@
 ---
 name: codeassist-guardrails
 description: Behavioral guardrails for LLM coding derived from Andrej Karpathy's observations on AI coding pitfalls. Apply whenever writing, editing, refactoring, debugging, or reviewing code — any language, any stack. These principles should be active any time Claude touches code.
+author: Dhruvi Kothari
 ---
 
 # Codeassist Guardrails

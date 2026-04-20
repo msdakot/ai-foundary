@@ -1,6 +1,7 @@
 ---
 name: skill-observer
 description: Review pending skill suggestions collected by the background observer. Use when the user wants to see, approve, reject, or apply pattern suggestions that the observer flagged during past sessions.
+author: Dhruvi Kothari
 ---
 
 # Skill Observer — Suggestion Review
