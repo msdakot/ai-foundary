@@ -28,61 +28,109 @@ If no file exists, tell the user: "No intel report found. Run the content-curato
 
 If the user specified a topic, use it. Otherwise, show them the **What's Hot** bullets from the report and ask: "Which of these would you like to post about?" Wait for their pick.
 
-## Step 3 — Confirm output format
+## Step 3 — Confirm platform
 
 Ask (if not already clear): "LinkedIn post or newsletter section?"
 - `linkedin` → follow the LinkedIn Post Template below
 - `newsletter` → follow the Newsletter Template below
 
-## Step 4 — Pick hook (LinkedIn only)
+## Step 4 — Pick content type
 
-Choose a hook formula from the Hook Library that fits the chosen topic. State in one line before drafting:
+Ask the user to pick a content type from the library below. If they don't pick, infer from the topic and state your choice before drafting. See **Content Types** section for the full playbook on each.
+
+- `insight` — share one specific learning or pattern (default for thought leadership)
+- `analysis` — zoom out from a news item to the underlying shift
+- `announcement` — a model, repo, or paper just dropped; lead with the news
+- `question` — genuinely ask the network, with your take first
+- `teardown` — reverse-engineer how something works and what to borrow
+
+## Step 5 — Pick hook (LinkedIn only)
+
+Choose a hook formula from the Hook Library that fits the chosen topic and content type. State in one line before drafting:
 ```
-Topic: [topic] / Hook: [type] / Sources: [HN | GitHub | ArXiv | X]
+Topic: [topic] / Type: [content type] / Hook: [hook type] / Sources: [HN | GitHub | ArXiv | X]
 ```
 
-## Step 5 — Draft
+## Step 6 — Draft
 
 ### LinkedIn Post Template
 
+**Format constraints:**
+- Hard limit: 1,300 characters total (LinkedIn truncates with "see more" around ~210 chars — the first 210 must earn the click)
+- First line is the hook and must stand alone
+- Use blank lines liberally for readability (LinkedIn is a scannable feed, not an essay)
+- End with 3–5 specific hashtags
+
+**Tone:**
+- Professional but personal — write like a peer, not a brand
+- Share insights and learnings from your own vantage point
+- Use "I" — first-person experiences, not abstract claims
+- End with a question that invites replies (drives engagement in the algorithm)
+
+**Exact structure (reproduce these blank lines):**
+
 ```
-[Hook — 1 compelling line, use the exact formula]
+[Hook — 1 compelling line, use a formula from the Hook Library]
 
-[Context — 1–2 sentences: why this matters right now]
+[Context — why this matters right now, 1–2 sentences]
 
-[Main insight — 2–3 short paragraphs, each 2–4 lines]
-[Cite real data: repo names, paper titles, HN scores, star counts — real numbers from the report]
-[Include the thought-leadership layer: what this means for AI builders, PMs, or developers]
+[Main insight paragraph 1 — 2–3 short lines. Cite a concrete data point from the report: repo name + stars, paper title, HN score, etc.]
 
-[Call to action or open question — 1 line]
+[Main insight paragraph 2 — 2–3 short lines. The thought-leadership layer: what this means for builders, PMs, or developers.]
 
-#hashtag1 #hashtag2 #hashtag3
+[Optional paragraph 3 — 2–3 lines, only if the idea needs it and you're under the char limit.]
+
+[Call to action or open question — 1 line, starts with "I'd love to hear" / "What's your take on" / "Curious how others are…"]
+
+#hashtag1 #hashtag2 #hashtag3 #hashtag4
 ```
 
-Rules:
-- Line 1 is the hook — apply the formula exactly, substituting the specific topic
-- Never start with "I've been thinking about" or "In today's fast-moving AI landscape"
-- Cite at least 2 concrete data points from the intel report
-- Hashtags: 3–5, specific (e.g. `#LLMAgents`, `#MCPProtocol`) — not generic (`#AI`, `#Tech`)
-- Tone: peer-to-peer; you are a builder talking to builders
+**Rules:**
+- Apply the chosen hook formula exactly, substituting the specific topic
+- Never start with "I've been thinking about…" or "In today's fast-moving AI landscape…"
+- Cite at least 2 concrete data points from the intel report (numbers, repo names, paper titles)
+- Hashtags: 3–5, specific (`#LLMAgents`, `#MCPProtocol`, `#AgenticAI`) — never generic (`#AI`, `#Tech`, `#Innovation`)
+- After drafting, count characters and print: `Char count: N/1300` — if over, tighten; if under 800, consider whether a third paragraph would strengthen the post
 
 ### Newsletter Template
 
-Write a 150–200 word section for a weekly AI newsletter. Structure:
+**Format constraints:**
+- Length: 200–350 words per section (newsletter readers have more attention than LinkedIn scrollers)
+- Scannable: bold the headline, bold one key phrase mid-body, use a pull-quote or bullet list if it serves the idea
+- Links are first-class — cite every claim with the actual URL from the report
+
+**Tone:**
+- Editorial and analytical — you are the reader's filter on a noisy week
+- Less "I" than LinkedIn, more "here's what happened and what it means"
+- Short sentences. Plain words. No marketing adjectives.
+
+**Exact structure:**
 
 ```
-**[Topic headline]**
+### [Topic headline — specific, not clickbait]
 
-[2–3 sentence lead: what happened and why it matters]
+**The signal:** [1–2 sentence lede — what happened, with the single most concrete data point inline: "X released Y with N stars in 48 hours"]
 
-[1 concrete data point or quote from the report]
+**Why it matters:** [2–3 sentences on the underlying shift this represents. Zoom out from the news item to the pattern.]
 
-[1–2 sentences: implication for practitioners]
+**What builders should do:** [2–3 sentences of actionable implication for AI-native developers, builders, or PMs. Specific, not generic.]
 
-→ [link or further reading if available from the report]
+> "[Optional pull-quote from a paper, tweet, or HN comment in the report — only if it genuinely adds weight]"
+>  — [attribution]
+
+**Further reading:**
+- [Primary source with URL]
+- [Secondary source with URL]
+- [Optional: related paper or repo with URL]
 ```
 
-## Step 6 — Reverse-engineer mode (when user asks)
+**Rules:**
+- Every factual claim must trace back to a signal in the intel report — no fabricated numbers
+- At least 2 links in "Further reading"
+- If the pull-quote doesn't earn its place, cut it
+- After drafting, print: `Word count: N (target 200–350)` — if under 150, the topic may be too thin; if over 400, cut the weakest paragraph
+
+## Step 7 — Reverse-engineer mode (when user asks)
 
 If the user asks to "mirror a viral post" or "reverse-engineer":
 
@@ -90,20 +138,55 @@ WebSearch: `site:linkedin.com "AI" "agents" OR "LLM" post 2026`
 
 Identify one high-engagement post from an AI-native builder/developer/PM. Note their hook structure, paragraph length, data usage, and ending style. Mirror that structural pattern for the draft. Note: "Structure borrowed from: @[creator]'s [format] format."
 
-## Step 7 — Present draft
+## Step 8 — Present draft
 
 Output the draft in a fenced block. Below it show:
 ```
+Content type: [insight | analysis | announcement | question | teardown]
 Hook type: [Curiosity | Story | Value | Contrarian]
 Sources cited: [list]
 Suggested posting time: morning 7–9am (thought leadership) | midday 12–1pm (how-to) | evening 6–8pm (opinion)
 ```
 
-## Step 8 — Refine
+## Step 9 — Refine
 
 Ask: "Adjust tone, swap the hook, or try a different angle?" Redraft if yes, keeping all data citations intact.
 
 ---
+
+## Content Types
+
+Pick the type that fits the topic. Each has its own angle and structure inside the LinkedIn/newsletter template.
+
+### Insight Posts (default)
+- Share one specific learning or pattern you noticed across the sweep
+- Brief context, then the insight, then why it's useful
+- Make it actionable — the reader should know what to try next
+- Avoids hot takes; grounded in a real signal from the report
+
+### Analysis Posts
+- Start from a concrete news item, then zoom out to the pattern it represents
+- "This announcement is really about [underlying shift]"
+- Cite at least one data point that supports the zoom-out
+- Closes with the implication for builders, not the news itself
+
+### Announcement Posts
+- Lead with the news (model dropped, paper released, repo blew up)
+- Explain the impact in 1–2 sentences — who this changes things for
+- Include the link or next step
+- Use when the intel report has a clear "today's thing" signal
+
+### Question Posts
+- Ask a genuine question the network can actually answer
+- Share your take first (2–3 lines) so replies have something to push against
+- Keep it to one focused topic — not a grab bag
+- Ends with the question, not a CTA
+
+### Teardown Posts
+- Reverse-engineer how something works: a viral repo, a paper's method, a product's architecture
+- Structure: "What it is → How it works → What to borrow"
+- Pulls at least 2 specific technical details from the report (not vibes)
+- Best for builders talking to builders
 
 ## Hook Library
 
