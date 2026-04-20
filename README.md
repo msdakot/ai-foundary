@@ -62,6 +62,7 @@ This copies the component into your project's `.claude/` directory and registers
 | Name | Description |
 |---|---|
 | [codeassist-guardrails](./skills/codeassist-guardrails/) | Behavioral guardrails for LLM coding — prevents silent assumptions, overengineering, and collateral damage |
+| [skill-observer](./skills/skill-observer/) | Background observer that watches conversation patterns, detects repeated corrections, and suggests new skills or CLAUDE.md rules for human approval |
 
 ---
 
@@ -90,7 +91,7 @@ _None yet — [contribute one](#contributing)_
    .claude/
    └── .agents/
        └── skills/
-           └── codeassist-guardrails/
+           └── <skill-name>/
                └── SKILL.md
    ```
 
@@ -98,10 +99,25 @@ _None yet — [contribute one](#contributing)_
    ```json
    {
      "skills": [
-       ".claude/.agents/skills/codeassist-guardrails"
+       ".claude/.agents/skills/<skill-name>"
      ]
    }
    ```
+
+3. **Skills with hooks** (e.g. `skill-observer`) also require copying the hook scripts to `~/.claude/hooks/` and registering them in `~/.claude/settings.json`:
+   ```bash
+   cp .claude/.agents/skills/<skill-name>/hooks/*.sh ~/.claude/hooks/
+   chmod +x ~/.claude/hooks/*.sh
+   ```
+   Then add to `~/.claude/settings.json`:
+   ```json
+   {
+     "hooks": {
+       "Stop": [{ "hooks": [{ "type": "command", "command": "bash ~/.claude/hooks/<skill-name>-stop.sh", "timeout": 10 }] }]
+     }
+   }
+   ```
+   The `npx ai-foundry add` command handles all of this automatically.
 
 ---
 
