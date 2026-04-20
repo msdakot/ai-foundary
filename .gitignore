@@ -1,8 +1,9 @@
 # OS
 .DS_Store
 
-# Eval workspaces (local dev artifacts)
+# Eval workspaces and eval test data (local dev artifacts)
 *-workspace/
+evals/
 
 # skill-creator (published separately by Anthropic)
 skills/skill-creator/
