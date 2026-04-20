@@ -1,6 +1,6 @@
 ---
 name: content-curator
-description: Draft a LinkedIn post or newsletter section from a topic the user picks out of the latest AI intel report. Invoke when the user says "write a LinkedIn post", "draft a post about [topic]", "write a newsletter", "content-curator draft", "content-curator newsletter", or "I want to post about [X]". Always reads the latest intel report first and grounds content in real data from it.
+description: Draft a LinkedIn post or newsletter section grounded in real data from the latest AI intel report. Invoke when the user says "write a LinkedIn post", "draft a post about [topic]", "write a newsletter section", "curate content for me", "turn today's intel into a post", or "I want to post about [X]". Always reads the latest research-MMDDYY.md from <YOUR_LOCAL_REPO_DIR>/content-curator/ first and cites concrete signals from it — never writes hot takes from memory.
 author: Dhruvi Kothari
 ---
 
@@ -15,9 +15,9 @@ First pull the repo to get the latest sweeps:
 cd <YOUR_LOCAL_REPO_DIR> && git pull --rebase origin main
 ```
 
-Then find the latest daily research file:
+Then find the latest daily research file (by modification time, so MMDDYY filenames don't mis-sort across year boundaries):
 ```bash
-ls <YOUR_LOCAL_REPO_DIR>/content-curator/research-*.md 2>/dev/null | sort | tail -1
+ls -t <YOUR_LOCAL_REPO_DIR>/content-curator/research-*.md 2>/dev/null | head -1
 ```
 
 Read that file. It contains multiple sweeps (up to 3/day) appended under `## Sweep N/3` headings. Focus on the most recent sweep's **What's Hot Right Now** and **Deep Dive** sections — those are your primary material.
@@ -36,20 +36,27 @@ Ask (if not already clear): "LinkedIn post or newsletter section?"
 
 ## Step 4 — Pick content type
 
-Ask the user to pick a content type from the library below. If they don't pick, infer from the topic and state your choice before drafting. See **Content Types** section for the full playbook on each.
+Ask the user to pick one. If they don't pick, infer from the topic and state your choice before drafting. The full playbook for each is in the **Content Types** section below — these labels must match exactly.
 
-- `insight` — share one specific learning or pattern (default for thought leadership)
+- `insight` (default) — share one specific learning or pattern
 - `analysis` — zoom out from a news item to the underlying shift
 - `announcement` — a model, repo, or paper just dropped; lead with the news
 - `question` — genuinely ask the network, with your take first
 - `teardown` — reverse-engineer how something works and what to borrow
+- `mirror` — reverse-engineer a viral post from an AI-native creator (see Step 5a)
 
-## Step 5 — Pick hook (LinkedIn only)
+## Step 5 — Pick hook (LinkedIn only; skip for newsletter)
 
 Choose a hook formula from the Hook Library that fits the chosen topic and content type. State in one line before drafting:
 ```
 Topic: [topic] / Type: [content type] / Hook: [hook type] / Sources: [HN | GitHub | ArXiv | X]
 ```
+
+### Step 5a — Mirror mode (only if content type is `mirror`)
+
+Run: `WebSearch: site:linkedin.com "AI" "agents" OR "LLM" post 2026`
+
+Pick one high-engagement post from an AI-native builder/developer/PM. Note their hook structure, paragraph length, data usage, and ending style. Mirror that structural pattern for the draft. At the bottom of the draft footer in Step 7, add: `Structure borrowed from: @[creator] ([post URL])`.
 
 ## Step 6 — Draft
 
@@ -65,7 +72,7 @@ Topic: [topic] / Type: [content type] / Hook: [hook type] / Sources: [HN | GitHu
 - Professional but personal — write like a peer, not a brand
 - Share insights and learnings from your own vantage point
 - Use "I" — first-person experiences, not abstract claims
-- End with a question that invites replies (drives engagement in the algorithm)
+- End with either a CTA or an open question — not both (question preferred for `insight` / `question` types; CTA preferred for `announcement`)
 
 **Exact structure (reproduce these blank lines):**
 
@@ -90,7 +97,7 @@ Topic: [topic] / Type: [content type] / Hook: [hook type] / Sources: [HN | GitHu
 - Never start with "I've been thinking about…" or "In today's fast-moving AI landscape…"
 - Cite at least 2 concrete data points from the intel report (numbers, repo names, paper titles)
 - Hashtags: 3–5, specific (`#LLMAgents`, `#MCPProtocol`, `#AgenticAI`) — never generic (`#AI`, `#Tech`, `#Innovation`)
-- After drafting, count characters and print: `Char count: N/1300` — if over, tighten; if under 800, consider whether a third paragraph would strengthen the post
+- After drafting, count characters and print: `Char count: N/1300` — if over, tighten; if under 400, the post is probably too thin (ask the user if they want a second data point added). Do not pad for length — 600–900 chars is a strong LinkedIn post.
 
 ### Newsletter Template
 
@@ -130,27 +137,33 @@ Topic: [topic] / Type: [content type] / Hook: [hook type] / Sources: [HN | GitHu
 - If the pull-quote doesn't earn its place, cut it
 - After drafting, print: `Word count: N (target 200–350)` — if under 150, the topic may be too thin; if over 400, cut the weakest paragraph
 
-## Step 7 — Reverse-engineer mode (when user asks)
+## Step 7 — Present draft
 
-If the user asks to "mirror a viral post" or "reverse-engineer":
+Output the draft in a fenced code block. Immediately below it print this footer exactly:
 
-WebSearch: `site:linkedin.com "AI" "agents" OR "LLM" post 2026`
-
-Identify one high-engagement post from an AI-native builder/developer/PM. Note their hook structure, paragraph length, data usage, and ending style. Mirror that structural pattern for the draft. Note: "Structure borrowed from: @[creator]'s [format] format."
-
-## Step 8 — Present draft
-
-Output the draft in a fenced block. Below it show:
 ```
-Content type: [insight | analysis | announcement | question | teardown]
-Hook type: [Curiosity | Story | Value | Contrarian]
-Sources cited: [list]
-Suggested posting time: morning 7–9am (thought leadership) | midday 12–1pm (how-to) | evening 6–8pm (opinion)
+Content type: [insight | analysis | announcement | question | teardown | mirror]
+Hook type:    [Curiosity | Story | Value | Contrarian]       (LinkedIn only; "—" for newsletter)
+Platform:     [linkedin | newsletter]
+Sources cited: [comma-separated list of URLs from the intel report]
+Char/Word count: [N/1300 for linkedin | N words for newsletter]
+Suggested posting time:
+  - insight / teardown      → morning 7–9am (thought leadership window)
+  - analysis                → midday 12–1pm (lunch-scroll window)
+  - announcement            → within 2 hours of the source going live
+  - question                → evening 6–8pm (higher reply rate)
+  - mirror                  → match the source post's slot
 ```
 
-## Step 9 — Refine
+If content type is `mirror`, add one more line: `Structure borrowed from: @[creator] ([URL])`.
 
-Ask: "Adjust tone, swap the hook, or try a different angle?" Redraft if yes, keeping all data citations intact.
+## Step 8 — Refine or finalize
+
+Ask exactly: **"Approve as-is, adjust tone, swap the hook, or try a different angle?"**
+
+- If user says approve / looks good / ship it → save the final draft to `/tmp/content-curator-<slug>-<YYYYMMDD-HHMM>.md` (slug = first 4 words of hook, kebab-cased). Print the file path. **Stop.**
+- If user asks for a change → redraft once, keeping all data citations intact, then return to Step 7.
+- After 3 rounds of refinement with no approval → ask: "Want me to start over from a different angle, or save the latest draft as-is?"
 
 ---
 
@@ -187,6 +200,16 @@ Pick the type that fits the topic. Each has its own angle and structure inside t
 - Structure: "What it is → How it works → What to borrow"
 - Pulls at least 2 specific technical details from the report (not vibes)
 - Best for builders talking to builders
+
+### Mirror Posts
+- Mirror the structural pattern of a high-engagement post from an AI-native creator
+- Triggered via Step 5a — runs a LinkedIn WebSearch, picks one reference post
+- Copies the *structure* (hook shape, paragraph count, ending style), never the content
+- Draft footer must credit the reference post with `Structure borrowed from: @[creator]`
+
+---
+
+**Consistency rule:** The six labels in Step 4 (`insight`, `analysis`, `announcement`, `question`, `teardown`, `mirror`) must match the six subsections here exactly. If you add or rename a type, update both places.
 
 ## Hook Library
 
