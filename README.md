@@ -72,7 +72,7 @@ This copies the component into your project's `.claude/` directory and registers
 
 | Agent | Description | Sub-agents |
 |---|---|---|
-| ai-team | Specialist sub-agents for end-to-end AI/ML work spanning research, data, modeling, and deployment | deepresearch, autoresearch, ai-scientist, data-scientist, ml-engineer, data-engineer, mlops-engineer, llm-architect, prompt-optimization, nlp-engineer, computer-vision-engineer, recommendation-engine, vector-database-engineer, data-visualization |
+| ai-team | Specialist sub-agents for end-to-end AI/ML work spanning research, data, modeling, and deployment | [deepresearch](./.claude/.agents/deepresearch/), [autoresearch](./.claude/.agents/autoresearch/), [ai-scientist](./.claude/.agents/ai-scientist/), [data-scientist](./.claude/.agents/data-scientist/), [ml-engineer](./.claude/.agents/ml-engineer/), [data-engineer](./.claude/.agents/data-engineer/), [mlops-engineer](./.claude/.agents/mlops-engineer/), [llm-architect](./.claude/.agents/llm-architect/), [prompt-optimization](./.claude/.agents/prompt-optimization/), [nlp-engineer](./.claude/.agents/nlp-engineer/), [computer-vision-engineer](./.claude/.agents/computer-vision-engineer/), [recommendation-engine](./.claude/.agents/recommendation-engine/), [vector-database-engineer](./.claude/.agents/vector-database-engineer/), [data-visualization](./.claude/.agents/data-visualization/) |
 
 ---
 
