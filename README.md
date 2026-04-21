@@ -70,7 +70,9 @@ This copies the component into your project's `.claude/` directory and registers
 
 ## Available agents
 
-_None yet — [contribute one](#contributing)_
+| Agent | Description | Sub-agents |
+|---|---|---|
+| ai-team | Specialist sub-agents for end-to-end AI/ML work spanning research, data, modeling, and deployment | deepresearch, autoresearch, ai-scientist, data-scientist, ml-engineer, data-engineer, mlops-engineer, llm-architect, prompt-optimization, nlp-engineer, computer-vision-engineer, recommendation-engine, vector-database-engineer, data-visualization |
 
 ---
 
