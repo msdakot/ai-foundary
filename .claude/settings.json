@@ -1,7 +1,7 @@
 {
   "skills": [
-    ".claude/.agents/skills/skill-creator",
-    ".claude/.agents/skills/codeassist-guardrails",
+    "skills/codeassist-guardrails",
+    "skills/social-media/content-curator",
     "skills/skill-observer"
   ]
 }
